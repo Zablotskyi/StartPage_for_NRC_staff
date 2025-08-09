@@ -1,33 +1,101 @@
-<!doctype html>
-<html class="no-js" lang="">
-
+<!DOCTYPE html>
+<html lang="uk">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Робоча стартова сторінка — MVP</title>
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="favicon.ico" />
   <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
-
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
-
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
-
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
 </head>
-
 <body>
+<div class="container">
+  <header class="topbar" aria-label="Шапка порталу">
+    <div class="brand" aria-label="Бренд">
+      <div class="logo" aria-hidden="true"></div>
+      <div class="title">Company Portal</div>
+    </div>
+    <form class="search" id="searchForm" role="search" aria-label="Пошук">
+      <input id="searchInput" name="q" type="search" placeholder="Пошук по ресурсах… (документи, інструкції)" aria-label="Пошук" />
+      <button class="btn primary" type="submit">Знайти</button>
+    </form>
+    <div class="actions" role="toolbar" aria-label="Дії">
+      <button class="btn" id="themeBtn" title="Темна/Світла тема">🌓 Тема</button>
+      <button class="btn" id="editBtn" title="Редагувати швидкі посилання">✏️ Редагувати</button>
+    </div>
+  </header>
 
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <script src="js/app.js"></script>
+  <main class="grid">
+    <!-- QUICK LINKS -->
+    <section class="card" aria-labelledby="linksTitle">
+      <h2 id="linksTitle">Швидкі посилання</h2>
+      <p class="muted">Найчастіші сервіси та інструменти. Можна налаштовувати під себе.</p>
+      <div id="links" class="links" role="list"></div>
+      <div class="row" id="editPanel" hidden>
+        <button class="btn" id="addLinkBtn">＋ Додати посилання</button>
+        <button class="btn" id="resetLinksBtn">↺ Скинути до стандартних</button>
+      </div>
+    </section>
 
+    <!-- ANNOUNCEMENTS / NEWS -->
+    <aside class="card" aria-labelledby="newsTitle">
+      <h2 id="newsTitle">Оголошення</h2>
+      <p class="muted">Короткі повідомлення від HR/IT. Останні зверху.</p>
+      <div id="news" class="news" role="list"></div>
+      <div class="row" id="newsPanel" hidden>
+        <button class="btn" id="addNewsBtn">＋ Додати оголошення</button>
+        <button class="btn" id="resetNewsBtn">↺ Скинути</button>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Company. Змінити стиль можна у змінних CSS (див. style.css).
+  </footer>
+</div>
+
+<!-- Dialog: Add/Edit Link -->
+<dialog id="linkDlg" aria-labelledby="linkDlgTitle">
+  <div class="dlgHead" id="linkDlgTitle">Посилання</div>
+  <form method="dialog">
+    <div class="dlgBody">
+      <div class="field">
+        <label for="linkTitle">Назва</label>
+        <input id="linkTitle" required placeholder="Напр., Jira" />
+      </div>
+      <div class="field">
+        <label for="linkUrl">URL</label>
+        <input id="linkUrl" required type="url" placeholder="https://…" />
+      </div>
+      <div class="field">
+        <label for="linkIcon">Іконка (1 літера, напр. J)</label>
+        <input id="linkIcon" maxlength="2" placeholder="J" />
+      </div>
+    </div>
+    <div class="dlgFoot">
+      <button class="btn" value="cancel">Скасувати</button>
+      <button class="btn primary" id="saveLinkBtn" value="default">Зберегти</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Dialog: Add News -->
+<dialog id="newsDlg" aria-labelledby="newsDlgTitle">
+  <div class="dlgHead" id="newsDlgTitle">Нове оголошення</div>
+  <form method="dialog">
+    <div class="dlgBody">
+      <div class="field">
+        <label for="newsText">Текст</label>
+        <textarea id="newsText" rows="4" placeholder="Коротке повідомлення…"></textarea>
+      </div>
+    </div>
+    <div class="dlgFoot">
+      <button class="btn" value="cancel">Скасувати</button>
+      <button class="btn primary" id="saveNewsBtn" value="default">Опублікувати</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="js/app.js"></script>
 </body>
-
 </html>
